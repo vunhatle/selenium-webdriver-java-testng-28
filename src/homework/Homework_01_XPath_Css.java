@@ -25,8 +25,9 @@ public class Homework_01_XPath_Css {
 
 		driver = new ChromeDriver();
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		driver.manage().window().maximize();
 		driver.get("https://alada.vn/tai-khoan/dang-ky.html");
-		//driver.manage().window().maximize();
+	
 		
 	}
 	
