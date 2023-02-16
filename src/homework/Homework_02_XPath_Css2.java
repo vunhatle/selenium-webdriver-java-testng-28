@@ -16,7 +16,15 @@ public class Homework_02_XPath_Css2 {
 	WebDriver driver;
 	String projectPath = System.getProperty("user.dir");
 	String osName = System.getProperty("os.name");
-
+	
+	public void sleepInSecond(long timeInSecond) {
+		try {
+			Thread.sleep(timeInSecond * 1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	@BeforeClass
 	public void beforeClass() {
 		if (osName.contains("Windows")) {
@@ -26,7 +34,7 @@ public class Homework_02_XPath_Css2 {
 		} 
 
 		driver = new ChromeDriver();
-		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(300, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
 		driver.get("https://cocolux.com/");
 		
@@ -37,7 +45,6 @@ public class Homework_02_XPath_Css2 {
 	public void TC_01_Display_Checkout() {
 		driver.findElement(By.xpath("//div[@class  = 'header-cart']/a")).click();
 		String checkOutPage = driver.getCurrentUrl();
-		//System.out.println(checkOutPage);
 		Assert.assertEquals(checkOutPage, "https://cocolux.com/checkout");
 	
 	}
@@ -54,14 +61,16 @@ public class Homework_02_XPath_Css2 {
 	@Test
 	public void TC_03_Multi_Number_Items() {
 		
-		int x = 5;
+		int x = 11;
 		int y = 0;
 		for (int i = 1;i<=x;i++) {
 			driver.get("https://cocolux.com/hang-moi-ve");
-			driver.findElement(By.xpath("//div[contains(@class,'col-6')]["+i+"]//div[@class='card--top']/a")).click();
+			WebElement element = driver.findElement(By.xpath("//div[contains(@class,'col-6')]["+i+"]//div[@class='card--top']/a"));
+			element.click();
 			if(driver.findElements(By.xpath("//span[text()='Giỏ hàng']/parent::button")).size() != 0) {
 				driver.findElement(By.xpath("//span[text()='Giỏ hàng']/parent::button")).click();
-				y++; 	 
+				sleepInSecond(3);
+				y++;
 			}else {
 				continue;
 			}
@@ -69,13 +78,13 @@ public class Homework_02_XPath_Css2 {
 		
 		System.out.println(y);
 		driver.get("https://cocolux.com/");
+		sleepInSecond(3);
 		String quantity = driver.findElement(By.xpath("//span[text()='Gió hàng']/preceding-sibling::div[@class='header-cart']/a/span[@class='header-cart-quantity']")).getText();
 		int quantityInt = Integer.parseInt(quantity);
 		System.out.println(quantity);
-		Assert.assertEquals(y, quantityInt);
+		Assert.assertEquals(quantityInt,y);
 
 		//driver.findElement(By.xpath("//span[text()='Gió hàng']/preceding-sibling::div[@class='header-cart']/a")).click();
-		//driver.get("https://cocolux.com/checkout");
 		//Assert.assertEquals(driver.findElements(By.xpath("//tbody/tr[not(contains(@class,'ccs-cart-table'))]")).size(), y);
 		
 	
