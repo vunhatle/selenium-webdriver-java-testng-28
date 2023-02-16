@@ -34,7 +34,7 @@ public class Homework_02_XPath_Css2 {
 		} 
 
 		driver = new ChromeDriver();
-		driver.manage().timeouts().implicitlyWait(300, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
 		driver.get("https://cocolux.com/");
 		
@@ -69,7 +69,7 @@ public class Homework_02_XPath_Css2 {
 			element.click();
 			if(driver.findElements(By.xpath("//span[text()='Giỏ hàng']/parent::button")).size() != 0) {
 				driver.findElement(By.xpath("//span[text()='Giỏ hàng']/parent::button")).click();
-				sleepInSecond(3);
+				sleepInSecond(2);
 				y++;
 			}else {
 				continue;
@@ -78,7 +78,7 @@ public class Homework_02_XPath_Css2 {
 		
 		System.out.println(y);
 		driver.get("https://cocolux.com/");
-		sleepInSecond(3);
+		sleepInSecond(2);
 		String quantity = driver.findElement(By.xpath("//span[text()='Gió hàng']/preceding-sibling::div[@class='header-cart']/a/span[@class='header-cart-quantity']")).getText();
 		int quantityInt = Integer.parseInt(quantity);
 		System.out.println(quantity);
