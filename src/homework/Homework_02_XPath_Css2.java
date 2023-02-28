@@ -34,7 +34,7 @@ public class Homework_02_XPath_Css2 {
 		} 
 
 		driver = new ChromeDriver();
-		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(600, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
 		driver.get("https://cocolux.com/");
 		
@@ -65,8 +65,10 @@ public class Homework_02_XPath_Css2 {
 		int y = 0;
 		for (int i = 1;i<=x;i++) {
 			driver.get("https://cocolux.com/hang-moi-ve");
+			//sleepInSecond(2);
 			WebElement element = driver.findElement(By.xpath("//div[contains(@class,'col-6')]["+i+"]//div[@class='card--top']/a"));
 			element.click();
+			//sleepInSecond(2);
 			if(driver.findElements(By.xpath("//span[text()='Giỏ hàng']/parent::button")).size() != 0) {
 				driver.findElement(By.xpath("//span[text()='Giỏ hàng']/parent::button")).click();
 				sleepInSecond(2);
@@ -78,7 +80,7 @@ public class Homework_02_XPath_Css2 {
 		
 		System.out.println(y);
 		driver.get("https://cocolux.com/");
-		sleepInSecond(2);
+		//sleepInSecond(2);
 		String quantity = driver.findElement(By.xpath("//span[text()='Gió hàng']/preceding-sibling::div[@class='header-cart']/a/span[@class='header-cart-quantity']")).getText();
 		int quantityInt = Integer.parseInt(quantity);
 		System.out.println(quantity);
